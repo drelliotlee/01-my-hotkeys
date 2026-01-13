@@ -7,6 +7,9 @@
 #   3 - Secondary (DP-1-3) left half
 #   4 - Secondary (DP-1-3) right half
 
+# as of jan 2026, i am not longer using this script which used f1/f2/f3/f4 to choose a quadrant.
+# but i want to switch to a ctrl+space multi-tap approach instead, so keeping this around for now.
+
 debug_print() { echo "[DEBUG] $1" >&2; }
 
 get_display_info() {
@@ -97,15 +100,29 @@ main() {
     read -r width height x_offset y_offset <<<"$display_info"
     read -r target_x target_y <<<"$(calculate_coordinate "$width" "$height" "$x_offset" "$y_offset" "$mode")"
 
-    local win=$(find_window_at_coordinate "$target_x" "$target_y") || { debug_print "No window"; exit 1; }
+    local win=$(find_window_at_coordinate "$target_x" "$target_y") || { debug_print "No window"; exit 1; } 
     activate_window "$win"
 
-    local HIGHLIGHT=("/home/elliot/Repos/01-my-hotkeys/highlight-pointer/highlight-pointer" "-c" "#FFFF00" "-r" "30")
+    # Kill any existing highlight-pointer processes from previous taps
+    pkill -f "highlight-pointer" 2>/dev/null
+    
+    local HIGHLIGHT_YELLOW=("/home/elliot/Repos/01-my-hotkeys/highlight-pointer/highlight-pointer" "-c" "#FFFF00" "-r" "45")
+    local HIGHLIGHT_BLACK=("/home/elliot/Repos/01-my-hotkeys/highlight-pointer/highlight-pointer" "-c" "#000000" "-r" "30")
     xdotool mousemove "$target_x" "$target_y"
-    "${HIGHLIGHT[@]}" &
-    local pid=$!
+    
+    # Show large yellow circle in background
+    "${HIGHLIGHT_YELLOW[@]}" &
+    local pid_yellow=$!
+    
+    # Small delay to ensure yellow renders first
+    sleep 0.05
+    
+    # Show smaller black circle on top
+    "${HIGHLIGHT_BLACK[@]}" &
+    local pid_black=$!
+    
     sleep 0.5
-    kill "$pid" 2>/dev/null
+    kill "$pid_yellow" "$pid_black" 2>/dev/null
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then

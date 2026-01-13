@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# as of jan 2026 i am no longer using this script and disabling my touchpad completely nad permanently due to this old approach
+# causing interrupt storms
+
 # A more robust script to toggle the "VEN_04F3:00 04F3:311C Touchpad" device.
 # It uses 'xinput set-prop' directly to avoid potential conflicts with
 # desktop environment settings.

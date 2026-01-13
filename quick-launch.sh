@@ -7,7 +7,7 @@ case "$1" in
     # If the argument is "-e", run the 'nemo' file manager.
     -e)
         echo "Launching Nemo..."
-        nemo /home/elliot/Documents &
+        nemo /home/elliot/ &
         ;;
     # If the argument is "-t", run the 'gnome-terminal'.
     -t)
