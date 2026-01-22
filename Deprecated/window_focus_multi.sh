@@ -3,6 +3,8 @@
 # Usage: Map Ctrl+M to this script
 # Tap Space 1-4 times (while holding Ctrl) to focus different quadrants
 
+# as of jan 22 2026 this is also deprecated in favor of 06/touchpad-as-Fkeys project
+
 STATE_FILE="/tmp/window_focus_state"
 PID_FILE="/tmp/window_focus_timer.pid"
 LOG_FILE="/tmp/window_focus_multi.log"

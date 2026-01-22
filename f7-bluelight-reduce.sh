@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Simple xsct toggle script
-# Cycles between normal (6500K), warm (2500K), and very red (1500K)
+# Toggles between normal (6500K) and very red (2000K)
 
 STATE_FILE="$HOME/.xsct_toggle_state"
 
@@ -30,14 +30,9 @@ current=$(get_state)
 
 case "$current" in
     "normal")
-        xsct 2500
-        set_state "warm"
-        echo "🟡 WARM (2500K)"
-        ;;
-    "warm")
-        xsct 1500
-        set_state "very_red"
-        echo "🔴 VERY RED (1500K)"
+        xsct 2000
+        set_state "red"
+        echo "🔴 VERY RED (2000K)"
         ;;
     *)
         xsct 6500

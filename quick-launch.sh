@@ -13,11 +13,15 @@ case "$1" in
     -t)
         echo "Launching Gnome Terminal..."
         gnome-terminal &
+        sleep 0.5
+        wmctrl -x -r "gnome-terminal" -b add,above
         ;;
     # If the argument is "-c", run the 'speedcrunch' calculator.
     -c)
         echo "Launching Speedcrunch..."
         speedcrunch &
+        sleep 0.2
+        wmctrl -r "SpeedCrunch" -b add,above
         ;;
     # Handle any other arguments or no arguments.
     *)
