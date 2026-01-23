@@ -16,12 +16,6 @@ echo "Launching Chrome window..."
 /usr/bin/google-chrome-stable --new-window &
 sleep 0.5 # Give the window manager time to draw the window
 
-# Find the newly launched Chrome window (the one that's currently active/focused)
-# This is crucial so xdotool targets the correct window.
-NEW_WINDOW_ID=$(xdotool getactivewindow)
-echo "New window ID: ${NEW_WINDOW_ID}"
-sleep 0.2
-
 # Move the window to the target monitor (the 'top 2nd monitor' which is virtually 'up/down').
 echo "Moving window to target monitor (Super+Shift+Up)..."
 xdotool key Super+Shift+Up
@@ -35,3 +29,4 @@ else
   echo "➡️ Chrome window found. Tiling RIGHT (Super+Right)."
   xdotool key Super+Right
 fi
+
